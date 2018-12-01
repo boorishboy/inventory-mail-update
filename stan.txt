@@ -1,0 +1,7 @@
+Witam,
+Oto stan magazynu na dziś.
+
+
+
+DATA   UTARG       A       B       C       D       E       F       G       H       I
+29.11.2018  2342.0   234.0   324.0   343.0     3.0     3.0     3.0     3.0     3.0     3.0
