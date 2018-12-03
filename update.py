@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 import datetime
 from datetime import timedelta
@@ -6,6 +5,9 @@ import numpy as np
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+#This function loads file from directory and if needed
+#deletes old stock data making room for current update
 
 def clear_mail():
     f = open("stan.txt", "r")
@@ -25,11 +27,11 @@ df = pd.read_excel('stan.xlsx')
 df = df.fillna(0)
 #print(df.loc[df["DATA"] == date])
 df1 = df.loc[df["DATA"] == date]
-
+output = df1.to_dict()
 clear_mail()
 
 stan = open("stan.txt", "a")
 stan.write("\n")
-stan.write(df1.to_string(index = False, col_space = 7))
+stan.write()
 stan.close()
 #df.to_csv(w'/Volumes/HDD/Python/stan.txt', df1)
