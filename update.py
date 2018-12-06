@@ -1,5 +1,7 @@
 import pandas as pd
+import platform
 import datetime
+import subprocess as sp
 from datetime import timedelta
 from tabulate import tabulate
 import smtplib
@@ -7,8 +9,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-#This function loads file from directory and if needed
-#deletes old stock data making room for current update
+def sys_check():
+    if "darwin" in platform.system():
+        print("Mac OS X")
+    elif "Windows" in platform.system():
+        file_edit_win()
+    elif "linux" in platform.system():
+        print("linux")
+    else:
+        print(platform.system())
 
 
 def clear_mail():
@@ -20,6 +29,20 @@ def clear_mail():
             if line != to_delete:
                 f.write(line + '\n')
         f.truncate()
+
+def file_edit_win():
+    programName = "notepad.exe"
+    textfile = "stan.txt"
+    p = sp.Popen([programName, textfile])
+    p.wait()
+
+
+def file_edit_mac():
+    programName = "/Volumes/SSD/Applications/TextEdit.app"
+    textfile = "stan.txt"
+    p1 = sp.Popen([programName, textfile])
+
+sys_check()
 
 now = datetime.datetime.now() - timedelta(1)
 yesterday = "9.11.2018"
@@ -33,9 +56,10 @@ table = tabulate(output, tablefmt = "grid", headers = "keys")
 
 
 
-clear_mail()
+#clear_mail()
 
 stan = open("stan.txt", "a")
+stan.write("\n")
 stan.write("\n")
 stan.write(table)
 stan.close()
